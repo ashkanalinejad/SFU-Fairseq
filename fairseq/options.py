@@ -20,7 +20,7 @@ def get_training_parser(default_task='translation'):
     parser = get_parser('Trainer', default_task)
     add_dataset_args(parser, train=True)
     add_distributed_training_args(parser)
-    if default_task == 'multimodal_translation':
+    if default_task == 'multimodal_pretraining':
         add_multimodal_model_args(parser)
         add_multimodal_optimization_args(parser)
     else:
@@ -537,16 +537,11 @@ def add_multimodal_model_args(parser):
     # 2) --arch argument
     # 3) --encoder/decoder-* arguments (highest priority)
     group.add_argument(
-        '--task1-arch', '-a1', default='fconv', metavar='ARCH1', required=True,
+        '--arch', '-a', default='multimodal_transformer', metavar='ARCH', required=True,
         choices=ARCH_MODEL_REGISTRY.keys(),
         help='Model Architecture',
     )
-    group.add_argument(
-        '--task2-arch', '-a2', default='fconv', metavar='ARCH2', required=False,
-        choices=ARCH_MODEL_REGISTRY.keys(),
-        help='Model Architecture',
-    )
-
+     
     # Criterion definitions can be found under fairseq/criterions/
     group.add_argument(
         '--task1-criterion', default='cross_entropy', metavar='CRIT1',

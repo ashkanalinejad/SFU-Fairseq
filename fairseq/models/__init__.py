@@ -30,10 +30,7 @@ ARCH_CONFIG_REGISTRY = {}
 
 
 def build_model(args, task):
-    if args.task == 'multimodal_translation':
-        return ARCH_MODEL_REGISTRY[args.task1_arch].build_model(args, task)
-    else:
-        return ARCH_MODEL_REGISTRY[args.arch].build_model(args, task)
+    return ARCH_MODEL_REGISTRY[args.arch].build_model(args, task)
 
 
 def register_model(name):
